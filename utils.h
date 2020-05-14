@@ -12,5 +12,6 @@ Status match_int_elements(Element element_one, Element element_two);
 
 Mapper square_of_integer;
 Predicate is_even_integer;
+Reducer sum_integers;
 
 #endif

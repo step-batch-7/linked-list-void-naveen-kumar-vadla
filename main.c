@@ -164,6 +164,18 @@ void perform_filter(List_ptr list)
   display_list(new_list, &display_int_element);
 }
 
+void perform_reduce(List_ptr list);
+void perform_reduce(List_ptr list)
+{
+  PRINT_STRING("\nreduce");
+  PRINT_STRING("numbers");
+  display_list(list, &display_int_element);
+  Element actual = reduce(list, create_int_element(0), &sum_integers);
+  PRINT_STRING("sum");
+  display_int_element(actual);
+  PRINT_STRING("\n");
+}
+
 int main()
 {
   List_ptr list = create_list();
@@ -190,6 +202,7 @@ int main()
 
   perform_map(list);
   perform_filter(list);
+  perform_reduce(list);
 
   perform_clear_list(list);
   return 0;

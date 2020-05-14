@@ -504,6 +504,67 @@ void test_filter(List_ptr list)
   clear_list(list);
 }
 
+void test_reduce(List_ptr list)
+{
+  PRINT_STRING("\nreduce");
+
+  Element expected = create_int_element(0);
+  Element actual = reduce(list, create_int_element(0), &sum_integers);
+  Status status = match_int_elements(actual, expected);
+  display_pass_or_fail(status);
+  PRINT_STRING("should give initial context for given empty array");
+
+  add_to_list(list, create_int_element(1));
+  expected = create_int_element(1);
+  actual = reduce(list, create_int_element(0), &sum_integers);
+  status = match_int_elements(actual, expected);
+  display_pass_or_fail(status);
+  PRINT_STRING("should reduce the array using given reducer for array with one values");
+
+  add_to_list(list, create_int_element(2));
+  expected = create_int_element(3);
+  actual = reduce(list, create_int_element(0), &sum_integers);
+  status = match_int_elements(actual, expected);
+  display_pass_or_fail(status);
+  PRINT_STRING("should reduce the array using given reducer for array with 2 values");
+
+  add_to_list(list, create_int_element(3));
+  add_to_list(list, create_int_element(4));
+  add_to_list(list, create_int_element(5));
+  expected = create_int_element(15);
+  actual = reduce(list, create_int_element(0), &sum_integers);
+  status = match_int_elements(actual, expected);
+  display_pass_or_fail(status);
+  PRINT_STRING("should reduce the array using given reducer for array more than 2 values");
+
+  clear_list(list);
+
+  add_to_list(list, create_int_element(1));
+  expected = create_int_element(11);
+  actual = reduce(list, create_int_element(10), &sum_integers);
+  status = match_int_elements(actual, expected);
+  display_pass_or_fail(status);
+  PRINT_STRING("should reduce the array using given reducer and using given initial context for array with one values");
+
+  add_to_list(list, create_int_element(2));
+  expected = create_int_element(13);
+  actual = reduce(list, create_int_element(10), &sum_integers);
+  status = match_int_elements(actual, expected);
+  display_pass_or_fail(status);
+  PRINT_STRING("should reduce the array using given reducer and using given initial context for array with 2 values");
+
+  add_to_list(list, create_int_element(3));
+  add_to_list(list, create_int_element(4));
+  add_to_list(list, create_int_element(5));
+  expected = create_int_element(25);
+  actual = reduce(list, create_int_element(10), &sum_integers);
+  status = match_int_elements(actual, expected);
+  display_pass_or_fail(status);
+  PRINT_STRING("should reduce the array using given reducer and using given initial context for array more than 2 values");
+
+  clear_list(list);
+}
+
 int main(void)
 {
   List_ptr list = create_list();
@@ -538,6 +599,7 @@ int main(void)
 
   test_map(list);
   test_filter(list);
+  test_reduce(list);
 
   printf(GREEN "\n%d passing" RESET, PASSING_TESTS);
   printf(RED "\n%d failing\n" RESET, FAILING_TESTS);

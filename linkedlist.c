@@ -260,3 +260,14 @@ List_ptr filter(List_ptr list, Predicate *predicate)
   }
   return new_list;
 }
+
+Element reduce(List_ptr list, Element context, Reducer *reducer)
+{
+  Node_ptr p_walk = list->first;
+  while (p_walk != NULL)
+  {
+    context = (*reducer)(context, p_walk->element);
+    p_walk = p_walk->next;
+  }
+  return context;
+}

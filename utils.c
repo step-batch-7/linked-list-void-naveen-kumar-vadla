@@ -28,3 +28,9 @@ Status is_even_integer(Element value)
 {
   return *(int *)value % 2 == 0;
 }
+
+Element sum_integers(Element context, Element value)
+{
+  *(int *)context = (*(int *)context) + (*(int *)value);
+  return context;
+}
