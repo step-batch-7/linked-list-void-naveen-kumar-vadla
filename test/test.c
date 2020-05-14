@@ -565,6 +565,38 @@ void test_reduce(List_ptr list)
   clear_list(list);
 }
 
+void test_forEach(List_ptr list)
+{
+  PRINT_STRING("\nforEach (display of list by forEach)");
+
+  forEach(list, &display_int_element);
+  display_pass_or_fail(Success);
+  PRINT_STRING("should iterate on empty list");
+
+  add_to_list(list, create_int_element(1));
+  add_to_list(list, create_int_element(2));
+  add_to_list(list, create_int_element(3));
+  add_to_list(list, create_int_element(4));
+  add_to_list(list, create_int_element(5));
+  forEach(list, &display_int_element);
+  PRINT_STRING("");
+  display_pass_or_fail(Success);
+  PRINT_STRING("should iterate on given list");
+
+  List_ptr expected = create_list();
+  add_to_list(expected, create_int_element(1));
+  add_to_list(expected, create_int_element(4));
+  add_to_list(expected, create_int_element(9));
+  add_to_list(expected, create_int_element(16));
+  add_to_list(expected, create_int_element(25));
+  forEach(list, &replace_element_with_its_square);
+  Status status = assert_list(list, expected, &match_int_elements);
+  display_pass_or_fail(status);
+  PRINT_STRING("should iterate on given list and change its values with equalent squares");
+
+  clear_list(list);
+}
+
 int main(void)
 {
   List_ptr list = create_list();
@@ -600,6 +632,7 @@ int main(void)
   test_map(list);
   test_filter(list);
   test_reduce(list);
+  test_forEach(list);
 
   printf(GREEN "\n%d passing" RESET, PASSING_TESTS);
   printf(RED "\n%d failing\n" RESET, FAILING_TESTS);

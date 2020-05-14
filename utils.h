@@ -7,8 +7,9 @@
 #define PRINT_STRING(string) printf("%s\n", string)
 
 Element create_int_element(int value);
-void display_int_element(Element number);
-Status match_int_elements(Element element_one, Element element_two);
+ElementProcessor display_int_element;
+ElementProcessor replace_element_with_its_square;
+Matcher match_int_elements;
 
 Mapper square_of_integer;
 Predicate is_even_integer;

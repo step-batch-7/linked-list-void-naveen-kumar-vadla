@@ -173,7 +173,20 @@ void perform_reduce(List_ptr list)
   Element actual = reduce(list, create_int_element(0), &sum_integers);
   PRINT_STRING("sum");
   display_int_element(actual);
-  PRINT_STRING("\n");
+  PRINT_STRING("");
+}
+
+void perform_for_each(List_ptr list);
+void perform_for_each(List_ptr list)
+{
+  PRINT_STRING("\nforEach");
+  display_list(list, &display_int_element);
+  PRINT_STRING("list using for Each");
+  forEach(list, &display_int_element);
+
+  forEach(list, &replace_element_with_its_square);
+  PRINT_STRING("\nlist replaced with its square using forEach");
+  display_list(list, &display_int_element);
 }
 
 int main()
@@ -203,6 +216,7 @@ int main()
   perform_map(list);
   perform_filter(list);
   perform_reduce(list);
+  perform_for_each(list);
 
   perform_clear_list(list);
   return 0;

@@ -34,3 +34,8 @@ Element sum_integers(Element context, Element value)
   *(int *)context = (*(int *)context) + (*(int *)value);
   return context;
 }
+
+void replace_element_with_its_square(Element value)
+{
+  *(int *)value = *(int *)value * *(int *)value;
+}

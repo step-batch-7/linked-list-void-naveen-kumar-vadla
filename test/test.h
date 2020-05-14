@@ -43,5 +43,6 @@ void test_add_unique(List_ptr list);
 void test_map(List_ptr list);
 void test_filter(List_ptr list);
 void test_reduce(List_ptr list);
+void test_forEach(List_ptr list);
 
 #endif
