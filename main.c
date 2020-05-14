@@ -40,6 +40,17 @@ void perform_insert_at(List_ptr list)
   display_list(list, &display_int_element);
 }
 
+void perform_reverse(List_ptr list);
+void perform_reverse(List_ptr list)
+{
+  PRINT_STRING("\nreverse");
+  display_list(list, &display_int_element);
+
+  List_ptr new_list = reverse(list);
+
+  display_list(new_list, &display_int_element);
+}
+
 void perform_clear_list(List_ptr list);
 void perform_clear_list(List_ptr list)
 {
@@ -62,7 +73,9 @@ int main()
   perform_add_to_list(list);
   perform_add_to_start(list);
   perform_insert_at(list);
-  
+
+  perform_reverse(list);
+
   perform_clear_list(list);
   return 0;
 }
