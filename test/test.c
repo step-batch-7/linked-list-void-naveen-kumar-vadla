@@ -57,12 +57,16 @@ void test_add_to_list(List_ptr list)
 {
   PRINT_STRING("\nadd_to_list");
 
-  int status = assert_integer(add_to_list(list, create_int_element(1)), Success);
+  Element element = create_int_element(1);
+  int status = assert_integer(add_to_list(list, element), Success);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), 0);
   status = status && assert_integer(list->length, 1);
   display_pass_or_fail(status);
   PRINT_STRING("should add the given number at the beginning if list is empty");
 
-  status = assert_integer(add_to_list(list, create_int_element(2)), Success);
+  element = create_int_element(2);
+  status = assert_integer(add_to_list(list, element), Success);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), 1);
   status = status && assert_integer(list->length, 2);
   display_pass_or_fail(status);
   PRINT_STRING("should add the given number at the end of the list");
@@ -74,12 +78,16 @@ void test_add_to_start(List_ptr list)
 {
   PRINT_STRING("\nadd_to_start");
 
-  int status = assert_integer(add_to_start(list, create_int_element(1)), Success);
+  Element element = create_int_element(1);
+  int status = assert_integer(add_to_start(list, element), Success);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), 0);
   status = status && assert_integer(list->length, 1);
   display_pass_or_fail(status);
   PRINT_STRING("should add the given number at the beginning of the list and make both head and last points the same node if list is empty");
 
-  status = assert_integer(add_to_start(list, create_int_element(2)), Success);
+  element = create_int_element(2);
+  status = assert_integer(add_to_start(list, element), Success);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), 0);
   status = status && assert_integer(list->length, 2);
   display_pass_or_fail(status);
   PRINT_STRING("should add the given number at the beginning of the list and modify nodes next if list is not empty");
@@ -121,7 +129,7 @@ void test_get_node_at(List_ptr list)
   node = get_node_at(list, 3);
   status = node == NULL;
   display_pass_or_fail(status);
-  PRINT_STRING("should give NULL for position above 0");
+  PRINT_STRING("should give NULL for position above list count");
 
   clear_list(list);
 }
@@ -133,27 +141,37 @@ void test_insert_at(List_ptr list)
 
   PRINT_STRING("\ninsert_at");
 
-  int status = assert_integer(insert_at(list, create_int_element(3), 2), Success);
+  Element element = create_int_element(3);
+  int status = assert_integer(insert_at(list, element, 2), Success);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), 2);
   status = status && assert_integer(list->length, 3);
   display_pass_or_fail(status);
   PRINT_STRING("should add the given number at the end of the list");
 
-  status = assert_integer(insert_at(list, create_int_element(0), 0), Success);
+  element = create_int_element(0);
+  status = assert_integer(insert_at(list, element, 0), Success);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), 0);
   status = status && assert_integer(list->length, 4);
   display_pass_or_fail(status);
   PRINT_STRING("should add the given number at the beginning of the list");
 
-  status = assert_integer(insert_at(list, create_int_element(6), 2), Success);
+  element = create_int_element(6);
+  status = assert_integer(insert_at(list, element, 2), Success);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), 2);
   status = status && assert_integer(list->length, 5);
   display_pass_or_fail(status);
   PRINT_STRING("should add the given number at the given position of the list");
 
-  status = assert_integer(insert_at(list, create_int_element(9), 9), Failure);
+  element = create_int_element(9);
+  status = assert_integer(insert_at(list, element, 9), Failure);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), -1);
   status = status && assert_integer(list->length, 5);
   display_pass_or_fail(status);
   PRINT_STRING("should not add the given number if the given position is below 0");
 
-  status = assert_integer(insert_at(list, create_int_element(9), -9), Failure);
+  element = create_int_element(9);
+  status = assert_integer(insert_at(list, element, -9), Failure);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), -1);
   status = status && assert_integer(list->length, 5);
   display_pass_or_fail(status);
   PRINT_STRING("should not add the given number if the given position is above list count");
