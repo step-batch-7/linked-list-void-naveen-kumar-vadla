@@ -16,9 +16,18 @@ void display_status(Status status, char *error_message)
 void perform_add_to_list(List_ptr list);
 void perform_add_to_list(List_ptr list)
 {
-  PRINT_STRING("add_to_list");
+  PRINT_STRING("\nadd_to_list");
   Status status = add_to_list(list, create_int_element(1));
   display_status(status, "Failed to add the number to the end of the list.");
+  display_list(list, &display_int_element);
+}
+
+void perform_clear_list(List_ptr list);
+void perform_clear_list(List_ptr list)
+{
+  PRINT_STRING("\nclear_list");
+  Status status = clear_list(list);
+  display_status(status, "The list you are trying to clear is empty");
   display_list(list, &display_int_element);
 }
 
@@ -31,5 +40,6 @@ int main()
     return 0;
   }
   perform_add_to_list(list);
+  perform_clear_list(list);
   return 0;
 }

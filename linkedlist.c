@@ -52,3 +52,17 @@ Status add_to_list(List_ptr list, Element value)
   list->length++;
   return Success;
 }
+
+Status clear_list(List_ptr list)
+{
+  Status status = Failure;
+  while (list->length > 0)
+  {
+    Node_ptr first = list->first;
+    list->first = first->next;
+    list->length--;
+    status = Success;
+    free(first);
+  }
+  return status;
+}
