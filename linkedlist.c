@@ -122,7 +122,7 @@ List_ptr reverse(List_ptr list)
   return new_list;
 }
 
-int search_node(List_ptr list, Element value, Matcher matcher)
+int search_node(List_ptr list, Element value, Matcher *matcher)
 {
   int index = -1;
   Node_ptr p_walk = list->first;
@@ -194,6 +194,16 @@ Element remove_at(List_ptr list, int position)
   before_node->next = temp->next;
   list->length--;
   return temp->element;
+}
+
+Element remove_first_occurrence(List_ptr list, Element value, Matcher *matcher)
+{
+  int index = search_node(list, value, matcher);
+  if (index == -1)
+  {
+    return NULL;
+  }
+  return remove_at(list, index);
 }
 
 Status clear_list(List_ptr list)

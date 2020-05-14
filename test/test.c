@@ -334,6 +334,32 @@ void test_remove_at(List_ptr list)
   clear_list(list);
 }
 
+void test_remove_first_occurrence(List_ptr list)
+{
+  Element element1 = create_int_element(1);
+  Element element2 = create_int_element(2);
+  add_to_list(list, element1);
+  add_to_list(list, element2);
+
+  PRINT_STRING("\nremove_first_occurrence");
+
+  Element actual = remove_first_occurrence(list, element1, &match_int_elements);
+  int status = match_int_elements(actual, element1);
+  status = status && assert_integer(search_node(list, element1, &match_int_elements), -1);
+  status = status && assert_integer(list->length, 1);
+  display_pass_or_fail(status);
+  PRINT_STRING("should remove first occurrence of the given number in the list if exists");
+
+  actual = remove_first_occurrence(list, element1, &match_int_elements);
+  status = actual == NULL;
+  status = status && assert_integer(search_node(list, element1, &match_int_elements), -1);
+  status = status && assert_integer(list->length, 1);
+  display_pass_or_fail(status);
+  PRINT_STRING("should not remove first occurrence of the given number in the list if not exists");
+
+  clear_list(list);
+}
+
 void test_add_unique(List_ptr list)
 {
   PRINT_STRING("\nadd_unique");
@@ -396,6 +422,8 @@ int main(void)
   test_remove_from_start(list);
   test_remove_from_end(list);
   test_remove_at(list);
+
+  test_remove_first_occurrence(list);
 
   test_add_unique(list);
 

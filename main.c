@@ -98,7 +98,21 @@ void perform_remove_at(List_ptr list)
 
   Element actual = remove_at(list, 1);
   Status status = actual != NULL && match_int_elements(actual, element);
-  display_status(status, "The list is empty.");
+  display_status(status, "The Position you asked to remove is Invalid.");
+  display_list(list, &display_int_element);
+}
+
+void perform_remove_first_occurrence(List_ptr list);
+void perform_remove_first_occurrence(List_ptr list)
+{
+  PRINT_STRING("\nremove_first_occurrence");
+  Element element = create_int_element(1);
+  add_to_start(list, element);
+  display_list(list, &display_int_element);
+
+  Element actual = remove_first_occurrence(list, element, &match_int_elements);
+  Status status = actual != NULL && match_int_elements(actual, element);
+  display_status(status, "The element is not present in the list.");
   display_list(list, &display_int_element);
 }
 
@@ -131,6 +145,8 @@ int main()
   perform_remove_from_end(list);
   perform_remove_at(list);
 
+  perform_remove_first_occurrence(list);
+  
   perform_add_unique(list);
 
   perform_clear_list(list);
