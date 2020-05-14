@@ -241,16 +241,26 @@ void test_search_node(List_ptr list)
 
 void test_remove_from_start(List_ptr list)
 {
-  Element element = create_int_element(1);
-  add_to_list(list, element);
+  Element element1 = create_int_element(1);
+  Element element2 = create_int_element(2);
+  add_to_list(list, element1);
+  add_to_list(list, element2);
 
   PRINT_STRING("\nremove_from_start");
 
   Element actual = remove_from_start(list);
-  Status status = match_int_elements(actual, element);
-  status = status && assert_integer(list->length, 0);
+  Status status = match_int_elements(actual, element1);
+  status = status && assert_integer(list->length, 1);
   display_pass_or_fail(status);
   PRINT_STRING("should remove the first item from the list and give");
+
+  actual = remove_from_start(list);
+  status = match_int_elements(actual, element2);
+  status = status && assert_integer(list->length, 0);
+  status = status && list->first == NULL;
+  status = status && list->last == NULL;
+  display_pass_or_fail(status);
+  PRINT_STRING("should remove the item and set the list first and last to NULL when there is only one element");
 
   actual = remove_from_start(list);
   status = actual == NULL;
@@ -279,8 +289,10 @@ void test_remove_from_end(List_ptr list)
   actual = remove_from_end(list);
   status = match_int_elements(actual, element1);
   status = status && assert_integer(list->length, 0);
+  status = status && list->first == NULL;
+  status = status && list->last == NULL;
   display_pass_or_fail(status);
-  PRINT_STRING("should remove the first item from the list if there is only one item");
+  PRINT_STRING("should remove the item and set the list first and last to NULL when there is only one element");
 
   actual = remove_from_end(list);
   status = actual == NULL;
@@ -321,13 +333,23 @@ void test_remove_at(List_ptr list)
   display_pass_or_fail(status);
   PRINT_STRING("should remove the element at the given position of the list");
 
+  display_list(list, &display_int_element);
+  status = match_int_elements(remove_at(list, 0), element2);
+  status = status && assert_integer(list->length, 1);
+  status = match_int_elements(remove_at(list, 0), element4);
+  status = status && assert_integer(list->length, 0);
+  status = status && list->first == NULL;
+  status = status && list->last == NULL;
+  display_pass_or_fail(status);
+  PRINT_STRING("should remove the item and set the list first and last to NULL when there is only one element");
+
   status = remove_at(list, 9) == NULL;
-  status = status && assert_integer(list->length, 2);
+  status = status && assert_integer(list->length, 0);
   display_pass_or_fail(status);
   PRINT_STRING("should not remove the element if the given position is below 0");
 
   status = remove_at(list, -9) == NULL;
-  status = status && assert_integer(list->length, 2);
+  status = status && assert_integer(list->length, 0);
   display_pass_or_fail(status);
   PRINT_STRING("should not remove the element if the given position is above list count");
 
