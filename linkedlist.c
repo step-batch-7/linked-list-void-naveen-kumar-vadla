@@ -244,3 +244,19 @@ List_ptr map(List_ptr list, Mapper *mapper)
   }
   return new_list;
 }
+
+List_ptr filter(List_ptr list, Predicate *predicate)
+{
+  List_ptr new_list = create_list();
+  Node_ptr p_walk = list->first;
+  while (p_walk != NULL)
+  {
+    Status result = (*predicate)(p_walk->element);
+    if (result)
+    {
+      add_to_list(new_list, p_walk->element);
+    }
+    p_walk = p_walk->next;
+  }
+  return new_list;
+}

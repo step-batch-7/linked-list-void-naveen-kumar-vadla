@@ -153,6 +153,17 @@ void perform_map(List_ptr list)
   display_list(new_list, &display_int_element);
 }
 
+void perform_filter(List_ptr list);
+void perform_filter(List_ptr list)
+{
+  PRINT_STRING("\nfilter");
+  PRINT_STRING("numbers");
+  display_list(list, &display_int_element);
+  List_ptr new_list = filter(list, &is_even_integer);
+  PRINT_STRING("evens");
+  display_list(new_list, &display_int_element);
+}
+
 int main()
 {
   List_ptr list = create_list();
@@ -178,6 +189,7 @@ int main()
   perform_add_unique(list);
 
   perform_map(list);
+  perform_filter(list);
 
   perform_clear_list(list);
   return 0;

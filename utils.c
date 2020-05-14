@@ -23,3 +23,8 @@ Element square_of_integer(Element value)
   int result = *(int *)value * *(int *)value;
   return create_int_element(result);
 }
+
+Status is_even_integer(Element value)
+{
+  return *(int *)value % 2 == 0;
+}

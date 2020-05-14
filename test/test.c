@@ -455,6 +455,53 @@ void test_map(List_ptr list)
   status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should map more values for a given large array with given mapper");
+
+  clear_list(list);
+}
+
+void test_filter(List_ptr list)
+{
+  PRINT_STRING("\nfilter");
+  List_ptr expected = create_list();
+
+  List_ptr actual = filter(list, &is_even_integer);
+  Status status = assert_list(actual, expected, &match_int_elements);
+  display_pass_or_fail(status);
+  PRINT_STRING("should give empty array for given empty array");
+
+  add_to_list(list, create_int_element(1));
+  actual = filter(list, &is_even_integer);
+  status = assert_list(actual, expected, &match_int_elements);
+  display_pass_or_fail(status);
+  PRINT_STRING("should filter no elements when there is only one element in array not and satisfying given predicate");
+
+  add_to_list(list, create_int_element(2));
+  add_to_list(expected, create_int_element(2));
+  actual = filter(list, &is_even_integer);
+  status = assert_list(actual, expected, &match_int_elements);
+  display_pass_or_fail(status);
+  PRINT_STRING("should filter one element when there is only one element satisfying given predicate");
+
+  add_to_list(list, create_int_element(3));
+  add_to_list(list, create_int_element(4));
+  add_to_list(list, create_int_element(5));
+  add_to_list(expected, create_int_element(4));
+  actual = filter(list, &is_even_integer);
+  status = assert_list(actual, expected, &match_int_elements);
+  display_pass_or_fail(status);
+  PRINT_STRING("should filter the elements satisfying given predicate for larger array");
+
+  clear_list(list);
+  clear_list(expected);
+  add_to_list(list, create_int_element(1));
+  add_to_list(list, create_int_element(3));
+  add_to_list(list, create_int_element(5));
+  actual = filter(list, &is_even_integer);
+  status = assert_list(actual, expected, &match_int_elements);
+  display_pass_or_fail(status);
+  PRINT_STRING("should filter empty when there is no elements satisfying given predicate");
+
+  clear_list(list);
 }
 
 int main(void)
@@ -490,6 +537,7 @@ int main(void)
   test_clear_list(list);
 
   test_map(list);
+  test_filter(list);
 
   printf(GREEN "\n%d passing" RESET, PASSING_TESTS);
   printf(RED "\n%d failing\n" RESET, FAILING_TESTS);
