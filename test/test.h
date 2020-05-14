@@ -23,12 +23,15 @@ void test_create_list(void);
 void test_create_node(void);
 
 void test_get_node_at(List_ptr list);
+void test_search_node(List_ptr list);
 
 void test_add_to_list(List_ptr list);
 void test_add_to_start(List_ptr list);
 void test_insert_at(List_ptr list);
 
 void test_reverse(List_ptr list);
+
+void test_add_unique(List_ptr list);
 
 void test_create_list(void);
 

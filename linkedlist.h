@@ -49,6 +49,7 @@ Node_ptr create_node(Element value);
 void display_list(List_ptr list, Display_Data displayer);
 
 Node_ptr get_node_at(List_ptr list, int position);
+int search_node(List_ptr list, Element value, Matcher matcher);
 
 Status add_to_list(List_ptr, Element);
 Status add_to_start(List_ptr, Element);

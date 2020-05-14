@@ -51,6 +51,15 @@ void perform_reverse(List_ptr list)
   display_list(new_list, &display_int_element);
 }
 
+void perform_add_unique(List_ptr list);
+void perform_add_unique(List_ptr list)
+{
+  PRINT_STRING("\nadd_unique");
+  Status status = add_unique(list, create_int_element(5), &match_int_elements);
+  display_status(status, "The number you entered is already present in the list.");
+  display_list(list, &display_int_element);
+}
+
 void perform_clear_list(List_ptr list);
 void perform_clear_list(List_ptr list)
 {
@@ -75,6 +84,8 @@ int main()
   perform_insert_at(list);
 
   perform_reverse(list);
+
+  perform_add_unique(list);
 
   perform_clear_list(list);
   return 0;

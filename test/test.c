@@ -198,6 +198,48 @@ void test_reverse(List_ptr list)
   status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give the reversed list for given list with more than two elements");
+
+  clear_list(list);
+}
+
+void test_search_node(List_ptr list)
+{
+  Element element = create_int_element(1);
+  add_to_list(list, element);
+
+  PRINT_STRING("\nsearch_node");
+
+  int status = assert_integer(search_node(list, element, &match_int_elements), 0);
+  display_pass_or_fail(status);
+  PRINT_STRING("should give the position if the item is present in the list");
+
+  element = create_int_element(2);
+  status = assert_integer(search_node(list, element, &match_int_elements), -1);
+  display_pass_or_fail(status);
+  PRINT_STRING("should give -1 if the item is not present in the list");
+
+  clear_list(list);
+}
+
+void test_add_unique(List_ptr list)
+{
+  PRINT_STRING("\nadd_unique");
+
+  Element element = create_int_element(1);
+
+  int status = assert_integer(add_unique(list, element, &match_int_elements), Success);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), 0);
+  status = status && assert_integer(list->length, 1);
+  display_pass_or_fail(status);
+  PRINT_STRING("should add the given number in the list if not exists");
+
+  status = assert_integer(add_unique(list, element, &match_int_elements), Failure);
+  status = status && assert_integer(search_node(list, element, &match_int_elements), 0);
+  status = status && assert_integer(list->length, 1);
+  display_pass_or_fail(status);
+  PRINT_STRING("should not add the given number in the list if exists");
+
+  clear_list(list);
 }
 
 void test_clear_list(List_ptr list)
@@ -230,12 +272,15 @@ int main(void)
   test_create_node();
 
   test_get_node_at(list);
+  test_search_node(list);
 
   test_add_to_list(list);
   test_add_to_start(list);
   test_insert_at(list);
 
   test_reverse(list);
+
+  test_add_unique(list);
 
   test_clear_list(list);
 

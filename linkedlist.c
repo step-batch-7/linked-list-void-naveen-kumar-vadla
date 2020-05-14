@@ -122,6 +122,32 @@ List_ptr reverse(List_ptr list)
   return new_list;
 }
 
+int search_node(List_ptr list, Element value, Matcher matcher)
+{
+  int index = -1;
+  Node_ptr p_walk = list->first;
+  for (int i = 0; i < list->length; i++)
+  {
+    if ((*matcher)(p_walk->element, value))
+    {
+      index = i;
+      break;
+    }
+    p_walk = p_walk->next;
+  }
+  return index;
+}
+
+Status add_unique(List_ptr list, Element value, Matcher matcher)
+{
+  int index = search_node(list, value, matcher);
+  if (index != -1)
+  {
+    return Failure;
+  }
+  return add_to_list(list, value);
+}
+
 Status clear_list(List_ptr list)
 {
   Status status = Failure;
