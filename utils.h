@@ -8,5 +8,6 @@
 
 Element create_int_element(int value);
 void display_int_element(Element number);
+Status match_int_elements(Element element_one, Element element_two);
 
 #endif

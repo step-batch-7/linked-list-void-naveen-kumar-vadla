@@ -16,7 +16,7 @@ int PASSING_TESTS = 0;
 int FAILING_TESTS = 0;
 
 Status assert(int actual, int expected);
-Status assert_list(List_ptr actual, List_ptr expected);
+Status assert_list(List_ptr actual, List_ptr expected, Matcher matcher);
 void display_pass_or_fail(int status);
 
 void test_create_list(void);

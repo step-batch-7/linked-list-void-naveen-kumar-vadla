@@ -8,14 +8,14 @@ Status assert_integer(int actual, int expected)
   return actual == expected;
 }
 
-Status assert_list(List_ptr actual, List_ptr expected)
+Status assert_list(List_ptr actual, List_ptr expected, Matcher matcher)
 {
   Status status = assert_integer(actual->length, expected->length);
   Node_ptr actual_p_walk = actual->first;
   Node_ptr expected_p_walk = expected->first;
   while (actual_p_walk != NULL && expected_p_walk != NULL)
   {
-    status = status && actual_p_walk->element == expected_p_walk->element;
+    status = status && (*matcher)(actual_p_walk->element, expected_p_walk->element);
     actual_p_walk = actual_p_walk->next;
     expected_p_walk = expected_p_walk->next;
   }
@@ -47,7 +47,7 @@ void test_create_node(void)
   Element element = create_int_element(1);
   Node_ptr node = create_node(element);
   Status status = node != NULL;
-  status = status && node->element == element;
+  status = status && match_int_elements(node->element, element);
   status = status && node->next == NULL;
   display_pass_or_fail(status);
   PRINT_STRING("should create a node and set its element to given element and next to NULL");
@@ -99,17 +99,17 @@ void test_get_node_at(List_ptr list)
   PRINT_STRING("\nget_node_at");
 
   Node_ptr node = get_node_at(list, 0);
-  Status status = node->element == element1;
+  Status status = match_int_elements(node->element, element1);
   display_pass_or_fail(status);
   PRINT_STRING("should give the first node for position 0");
 
   node = get_node_at(list, 2);
-  status = node->element == element3;
+  status = match_int_elements(node->element, element3);
   display_pass_or_fail(status);
   PRINT_STRING("should give the last node for position as list length");
 
   node = get_node_at(list, 1);
-  status = node->element == element2;
+  status = match_int_elements(node->element, element2);
   display_pass_or_fail(status);
   PRINT_STRING("should give the required node for given position");
 
@@ -171,7 +171,7 @@ void test_reverse(List_ptr list)
   List_ptr expected = create_list();
 
   List_ptr actual = reverse(list);
-  Status status = assert_list(actual, expected);
+  Status status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give reversed empty list for given empty list");
 
@@ -179,7 +179,7 @@ void test_reverse(List_ptr list)
   add_to_start(expected, element1);
 
   actual = reverse(list);
-  status = assert_list(actual, expected);
+  status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give the same list for given list with single element");
 
@@ -187,7 +187,7 @@ void test_reverse(List_ptr list)
   add_to_start(expected, element2);
 
   actual = reverse(list);
-  status = assert_list(actual, expected);
+  status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give the reversed list for given list with two elements");
 
@@ -195,7 +195,7 @@ void test_reverse(List_ptr list)
   add_to_start(expected, element3);
 
   actual = reverse(list);
-  status = assert_list(actual, expected);
+  status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give the reversed list for given list with more than two elements");
 }
