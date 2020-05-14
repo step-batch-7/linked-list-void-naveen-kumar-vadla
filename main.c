@@ -142,6 +142,17 @@ void perform_clear_list(List_ptr list)
   display_list(list, &display_int_element);
 }
 
+void perform_map(List_ptr list);
+void perform_map(List_ptr list)
+{
+  PRINT_STRING("\nmap");
+  PRINT_STRING("numbers");
+  display_list(list, &display_int_element);
+  List_ptr new_list = map(list, &square_of_integer);
+  PRINT_STRING("squares");
+  display_list(new_list, &display_int_element);
+}
+
 int main()
 {
   List_ptr list = create_list();
@@ -165,6 +176,8 @@ int main()
   perform_remove_first_occurrence(list);
   perform_remove_all_occurrences(list);
   perform_add_unique(list);
+
+  perform_map(list);
 
   perform_clear_list(list);
   return 0;

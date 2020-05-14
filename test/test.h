@@ -40,6 +40,6 @@ void test_remove_all_occurrences(List_ptr list);
 
 void test_add_unique(List_ptr list);
 
-void test_create_list(void);
+void test_map(List_ptr list);
 
 #endif

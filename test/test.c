@@ -425,6 +425,38 @@ void test_clear_list(List_ptr list)
   PRINT_STRING("should not clear the list if it is an empty list");
 }
 
+void test_map(List_ptr list)
+{
+  PRINT_STRING("\nmap");
+  List_ptr expected = create_list();
+
+  List_ptr actual = map(list, &square_of_integer);
+  Status status = assert_list(actual, expected, &match_int_elements);
+  display_pass_or_fail(status);
+  PRINT_STRING("should give empty array for given empty array");
+
+  add_to_list(list, create_int_element(2));
+  add_to_list(expected, create_int_element(4));
+  actual = map(list, &square_of_integer);
+  status = assert_list(actual, expected, &match_int_elements);
+  display_pass_or_fail(status);
+  PRINT_STRING("should map a single value for a given single element array with given mapper");
+
+  add_to_list(list, create_int_element(3));
+  add_to_list(expected, create_int_element(9));
+  actual = map(list, &square_of_integer);
+  status = assert_list(actual, expected, &match_int_elements);
+  display_pass_or_fail(status);
+  PRINT_STRING("should map two values for a given two element array with given mapper");
+
+  add_to_list(list, create_int_element(4));
+  add_to_list(expected, create_int_element(16));
+  actual = map(list, &square_of_integer);
+  status = assert_list(actual, expected, &match_int_elements);
+  display_pass_or_fail(status);
+  PRINT_STRING("should map more values for a given large array with given mapper");
+}
+
 int main(void)
 {
   List_ptr list = create_list();
@@ -456,6 +488,8 @@ int main(void)
   test_add_unique(list);
 
   test_clear_list(list);
+
+  test_map(list);
 
   printf(GREEN "\n%d passing" RESET, PASSING_TESTS);
   printf(RED "\n%d failing\n" RESET, FAILING_TESTS);

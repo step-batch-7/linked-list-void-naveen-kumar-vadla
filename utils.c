@@ -17,3 +17,9 @@ Status match_int_elements(Element element_one, Element element_two)
 {
   return *(int *)element_one == *(int *)element_two;
 }
+
+Element square_of_integer(Element value)
+{
+  int result = *(int *)value * *(int *)value;
+  return create_int_element(result);
+}
