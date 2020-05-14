@@ -31,6 +31,15 @@ void perform_add_to_start(List_ptr list)
   display_list(list, &display_int_element);
 }
 
+void perform_insert_at(List_ptr list);
+void perform_insert_at(List_ptr list)
+{
+  PRINT_STRING("\ninsert_at");
+  Status status = insert_at(list, create_int_element(0), 1);
+  display_status(status, "The position you want to insert is invalid.");
+  display_list(list, &display_int_element);
+}
+
 void perform_clear_list(List_ptr list);
 void perform_clear_list(List_ptr list)
 {
@@ -49,8 +58,11 @@ int main()
     return 0;
   }
   display_list(list, &display_int_element);
+
   perform_add_to_list(list);
   perform_add_to_start(list);
+  perform_insert_at(list);
+  
   perform_clear_list(list);
   return 0;
 }

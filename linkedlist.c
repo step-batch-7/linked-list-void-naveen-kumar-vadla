@@ -70,6 +70,46 @@ Status add_to_start(List_ptr list, Element value)
   return Success;
 }
 
+Node_ptr get_node_at(List_ptr list, int position)
+{
+  if (position < 0 || position > list->length)
+  {
+    return NULL;
+  }
+  Node_ptr p_walk = list->first;
+  for (int i = 0; i < position; i++)
+  {
+    p_walk = p_walk->next;
+  }
+  return p_walk;
+}
+
+Status insert_at(List_ptr list, Element value, int position)
+{
+  if (position == 0)
+  {
+    return add_to_start(list, value);
+  }
+  if (position < 0 || position > list->length)
+  {
+    return Failure;
+  }
+  Node_ptr new_node = create_node(value);
+  if (new_node == NULL)
+  {
+    return Memory_Not_Available;
+  }
+  if (position == list->length)
+  {
+    list->last = new_node;
+  }
+  Node_ptr before_node = get_node_at(list, position - 1);
+  new_node->next = before_node->next;
+  before_node->next = new_node;
+  list->length++;
+  return Success;
+}
+
 Status clear_list(List_ptr list)
 {
   Status status = Failure;
