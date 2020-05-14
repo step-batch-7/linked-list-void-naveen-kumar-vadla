@@ -148,6 +148,19 @@ Status add_unique(List_ptr list, Element value, Matcher matcher)
   return add_to_list(list, value);
 }
 
+Element remove_from_start(List_ptr list)
+{
+  Element element = NULL;
+  Node_ptr first = list->first;
+  if (first != NULL)
+  {
+    list->first = first->next;
+    element = first->element;
+    list->length--;
+  }
+  return element;
+}
+
 Status clear_list(List_ptr list)
 {
   Status status = Failure;

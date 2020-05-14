@@ -239,6 +239,28 @@ void test_search_node(List_ptr list)
   clear_list(list);
 }
 
+void test_remove_from_start(List_ptr list)
+{
+  Element element = create_int_element(1);
+  add_to_list(list, element);
+
+  PRINT_STRING("\nremove_from_start");
+
+  Element actual = remove_from_start(list);
+  int status = match_int_elements(actual, element);
+  status = status && assert_integer(list->length, 0);
+  display_pass_or_fail(status);
+  PRINT_STRING("should remove the first item from the list and give");
+
+  actual = remove_from_start(list);
+  status = actual == NULL;
+  status = status && assert_integer(list->length, 0);
+  display_pass_or_fail(status);
+  PRINT_STRING("should not remove the item from the list if the list is empty and given NULL");
+
+  clear_list(list);
+}
+
 void test_add_unique(List_ptr list)
 {
   PRINT_STRING("\nadd_unique");
@@ -297,6 +319,8 @@ int main(void)
   test_insert_at(list);
 
   test_reverse(list);
+
+  test_remove_from_start(list);
 
   test_add_unique(list);
 
