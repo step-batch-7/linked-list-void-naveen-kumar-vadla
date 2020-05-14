@@ -15,9 +15,9 @@
 int PASSING_TESTS = 0;
 int FAILING_TESTS = 0;
 
-Status assert(int actual, int expected);
+Status assert_integer(int actual, int expected);
 Status assert_list(List_ptr actual, List_ptr expected, Matcher matcher);
-void display_pass_or_fail(int status);
+void display_pass_or_fail(Status status);
 
 void test_create_list(void);
 void test_create_node(void);
@@ -33,6 +33,7 @@ void test_reverse(List_ptr list);
 
 void test_remove_from_start(List_ptr list);
 void test_remove_from_end(List_ptr list);
+void test_remove_at(List_ptr list);
 
 void test_add_unique(List_ptr list);
 

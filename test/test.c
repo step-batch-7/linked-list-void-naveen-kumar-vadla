@@ -22,7 +22,7 @@ Status assert_list(List_ptr actual, List_ptr expected, Matcher matcher)
   return status;
 }
 
-void display_pass_or_fail(int status)
+void display_pass_or_fail(Status status)
 {
   status ? printf(PASS) : printf(FAIL);
   status ? PASSING_TESTS++ : FAILING_TESTS++;
@@ -58,7 +58,7 @@ void test_add_to_list(List_ptr list)
   PRINT_STRING("\nadd_to_list");
 
   Element element = create_int_element(1);
-  int status = assert_integer(add_to_list(list, element), Success);
+  Status status = assert_integer(add_to_list(list, element), Success);
   status = status && assert_integer(search_node(list, element, &match_int_elements), 0);
   status = status && assert_integer(list->length, 1);
   display_pass_or_fail(status);
@@ -79,7 +79,7 @@ void test_add_to_start(List_ptr list)
   PRINT_STRING("\nadd_to_start");
 
   Element element = create_int_element(1);
-  int status = assert_integer(add_to_start(list, element), Success);
+  Status status = assert_integer(add_to_start(list, element), Success);
   status = status && assert_integer(search_node(list, element, &match_int_elements), 0);
   status = status && assert_integer(list->length, 1);
   display_pass_or_fail(status);
@@ -142,7 +142,7 @@ void test_insert_at(List_ptr list)
   PRINT_STRING("\ninsert_at");
 
   Element element = create_int_element(3);
-  int status = assert_integer(insert_at(list, element, 2), Success);
+  Status status = assert_integer(insert_at(list, element, 2), Success);
   status = status && assert_integer(search_node(list, element, &match_int_elements), 2);
   status = status && assert_integer(list->length, 3);
   display_pass_or_fail(status);
@@ -227,7 +227,7 @@ void test_search_node(List_ptr list)
 
   PRINT_STRING("\nsearch_node");
 
-  int status = assert_integer(search_node(list, element, &match_int_elements), 0);
+  Status status = assert_integer(search_node(list, element, &match_int_elements), 0);
   display_pass_or_fail(status);
   PRINT_STRING("should give the position if the item is present in the list");
 
@@ -247,7 +247,7 @@ void test_remove_from_start(List_ptr list)
   PRINT_STRING("\nremove_from_start");
 
   Element actual = remove_from_start(list);
-  int status = match_int_elements(actual, element);
+  Status status = match_int_elements(actual, element);
   status = status && assert_integer(list->length, 0);
   display_pass_or_fail(status);
   PRINT_STRING("should remove the first item from the list and give");
@@ -271,7 +271,7 @@ void test_remove_from_end(List_ptr list)
   PRINT_STRING("\nremove_from_end");
 
   Element actual = remove_from_end(list);
-  int status = match_int_elements(actual, element2);
+  Status status = match_int_elements(actual, element2);
   status = status && assert_integer(list->length, 1);
   display_pass_or_fail(status);
   PRINT_STRING("should remove the last item from the list");
@@ -291,13 +291,56 @@ void test_remove_from_end(List_ptr list)
   clear_list(list);
 }
 
+void test_remove_at(List_ptr list)
+{
+  Element element1 = create_int_element(1);
+  Element element2 = create_int_element(2);
+  Element element3 = create_int_element(3);
+  Element element4 = create_int_element(4);
+  Element element5 = create_int_element(5);
+  add_to_list(list, element1);
+  add_to_list(list, element2);
+  add_to_list(list, element3);
+  add_to_list(list, element4);
+  add_to_list(list, element5);
+
+  PRINT_STRING("\nremove_at");
+
+  Status status = match_int_elements(remove_at(list, 4), element5);
+  status = status && assert_integer(list->length, 4);
+  display_pass_or_fail(status);
+  PRINT_STRING("should remove the element at the end of the list for position list count");
+
+  status = match_int_elements(remove_at(list, 0), element1);
+  status = status && assert_integer(list->length, 3);
+  display_pass_or_fail(status);
+  PRINT_STRING("should remove the element at the beginning of the list for position 0");
+
+  status = match_int_elements(remove_at(list, 1), element3);
+  status = status && assert_integer(list->length, 2);
+  display_pass_or_fail(status);
+  PRINT_STRING("should remove the element at the given position of the list");
+
+  status = remove_at(list, 9) == NULL;
+  status = status && assert_integer(list->length, 2);
+  display_pass_or_fail(status);
+  PRINT_STRING("should not remove the element if the given position is below 0");
+
+  status = remove_at(list, -9) == NULL;
+  status = status && assert_integer(list->length, 2);
+  display_pass_or_fail(status);
+  PRINT_STRING("should not remove the element if the given position is above list count");
+
+  clear_list(list);
+}
+
 void test_add_unique(List_ptr list)
 {
   PRINT_STRING("\nadd_unique");
 
   Element element = create_int_element(1);
 
-  int status = assert_integer(add_unique(list, element, &match_int_elements), Success);
+  Status status = assert_integer(add_unique(list, element, &match_int_elements), Success);
   status = status && assert_integer(search_node(list, element, &match_int_elements), 0);
   status = status && assert_integer(list->length, 1);
   display_pass_or_fail(status);
@@ -318,7 +361,7 @@ void test_clear_list(List_ptr list)
 
   PRINT_STRING("\nclear_list");
 
-  int status = assert_integer(clear_list(list), Success);
+  Status status = assert_integer(clear_list(list), Success);
   status = status && assert_integer(list->length, 0);
   display_pass_or_fail(status);
   PRINT_STRING("should clear the list and set to zero");
@@ -352,6 +395,7 @@ int main(void)
 
   test_remove_from_start(list);
   test_remove_from_end(list);
+  test_remove_at(list);
 
   test_add_unique(list);
 

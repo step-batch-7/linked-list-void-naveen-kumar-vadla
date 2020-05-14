@@ -175,6 +175,27 @@ Element remove_from_end(List_ptr list)
   return element;
 }
 
+Element remove_at(List_ptr list, int position)
+{
+  if (position == 0)
+  {
+    return remove_from_start(list);
+  }
+  if (position < 0 || position >= list->length)
+  {
+    return NULL;
+  }
+  Node_ptr before_node = get_node_at(list, position - 1);
+  if (position == list->length - 1)
+  {
+    list->last = before_node;
+  }
+  Node_ptr temp = before_node->next;
+  before_node->next = temp->next;
+  list->length--;
+  return temp->element;
+}
+
 Status clear_list(List_ptr list)
 {
   Status status = Failure;
