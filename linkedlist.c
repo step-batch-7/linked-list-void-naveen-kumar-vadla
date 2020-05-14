@@ -150,10 +150,12 @@ Status add_unique(List_ptr list, Element value, Matcher matcher)
 
 Element remove_from_start(List_ptr list)
 {
+  Element element = NULL;
   Node_ptr first = list->first;
   if (first != NULL)
   {
     list->first = first->next;
+    element = first->element;
     list->length--;
   }
   if (list->length == 0)
@@ -161,7 +163,7 @@ Element remove_from_start(List_ptr list)
     list->first = NULL;
     list->last = NULL;
   }
-  return first->element;
+  return element;
 }
 
 Element remove_from_end(List_ptr list)
