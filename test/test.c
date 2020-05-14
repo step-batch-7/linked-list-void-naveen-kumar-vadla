@@ -52,6 +52,25 @@ void test_add_to_list(List_ptr list)
   status = status && assert(list->length, 2);
   display_pass_or_fail(status);
   PRINT_STRING("should add the given number at the end of the list");
+
+  clear_list(list);
+}
+
+void test_add_to_start(List_ptr list)
+{
+  PRINT_STRING("\nadd_to_start");
+
+  int status = assert(add_to_start(list, create_int_element(1)), Success);
+  status = status && assert(list->length, 1);
+  display_pass_or_fail(status);
+  PRINT_STRING("should add the given number at the beginning of the list and make both head and last points the same node if list is empty");
+
+  status = assert(add_to_start(list, create_int_element(2)), Success);
+  status = status && assert(list->length, 2);
+  display_pass_or_fail(status);
+  PRINT_STRING("should add the given number at the beginning of the list and modify nodes next if list is not empty");
+
+  clear_list(list);
 }
 
 void test_clear_list(List_ptr list)
@@ -84,6 +103,7 @@ int main(void)
   test_create_node();
 
   test_add_to_list(list);
+  test_add_to_start(list);
 
   test_clear_list(list);
 

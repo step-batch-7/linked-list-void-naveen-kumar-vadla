@@ -53,6 +53,23 @@ Status add_to_list(List_ptr list, Element value)
   return Success;
 }
 
+Status add_to_start(List_ptr list, Element value)
+{
+  Node_ptr new_node = create_node(value);
+  if (new_node == NULL)
+  {
+    return Memory_Not_Available;
+  }
+  if (list->first == NULL)
+  {
+    list->last = new_node;
+  }
+  new_node->next = list->first;
+  list->first = new_node;
+  list->length++;
+  return Success;
+}
+
 Status clear_list(List_ptr list)
 {
   Status status = Failure;

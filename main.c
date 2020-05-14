@@ -22,6 +22,15 @@ void perform_add_to_list(List_ptr list)
   display_list(list, &display_int_element);
 }
 
+void perform_add_to_start(List_ptr list);
+void perform_add_to_start(List_ptr list)
+{
+  PRINT_STRING("\nadd_to_start");
+  Status status = add_to_start(list, create_int_element(2));
+  display_status(status, "Failed to add the number to the beginning of the list.");
+  display_list(list, &display_int_element);
+}
+
 void perform_clear_list(List_ptr list);
 void perform_clear_list(List_ptr list)
 {
@@ -39,7 +48,9 @@ int main()
     display_status(Memory_Not_Available, "");
     return 0;
   }
+  display_list(list, &display_int_element);
   perform_add_to_list(list);
+  perform_add_to_start(list);
   perform_clear_list(list);
   return 0;
 }
