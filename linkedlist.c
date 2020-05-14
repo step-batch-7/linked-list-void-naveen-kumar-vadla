@@ -206,6 +206,18 @@ Element remove_first_occurrence(List_ptr list, Element value, Matcher *matcher)
   return remove_at(list, index);
 }
 
+List_ptr remove_all_occurrences(List_ptr list, Element value, Matcher *matcher)
+{
+  List_ptr new_list = create_list();
+  Element element = remove_first_occurrence(list, value, matcher);
+  while (element != NULL)
+  {
+    add_to_list(new_list, element);
+    element = remove_first_occurrence(list, value, matcher);
+  }
+  return new_list;
+}
+
 Status clear_list(List_ptr list)
 {
   Status status = Failure;

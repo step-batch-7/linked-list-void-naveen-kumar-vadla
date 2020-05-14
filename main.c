@@ -116,6 +116,23 @@ void perform_remove_first_occurrence(List_ptr list)
   display_list(list, &display_int_element);
 }
 
+void perform_remove_all_occurrences(List_ptr list);
+void perform_remove_all_occurrences(List_ptr list)
+{
+  PRINT_STRING("\nremove_all_occurrences");
+  Element element = create_int_element(5);
+  add_to_start(list, element);
+  add_to_list(list, element);
+  insert_at(list, element, 2);
+  display_list(list, &display_int_element);
+
+  List_ptr new_list = remove_all_occurrences(list, element, &match_int_elements);
+  Status status = new_list->length != 0;
+  status = status && search_node(list, element, &match_int_elements) == -1;
+  display_status(status, "The element is not present in the list.");
+  display_list(list, &display_int_element);
+}
+
 void perform_clear_list(List_ptr list);
 void perform_clear_list(List_ptr list)
 {
@@ -146,7 +163,7 @@ int main()
   perform_remove_at(list);
 
   perform_remove_first_occurrence(list);
-  
+  perform_remove_all_occurrences(list);
   perform_add_unique(list);
 
   perform_clear_list(list);
