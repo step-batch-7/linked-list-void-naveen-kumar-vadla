@@ -256,7 +256,37 @@ void test_remove_from_start(List_ptr list)
   status = actual == NULL;
   status = status && assert_integer(list->length, 0);
   display_pass_or_fail(status);
-  PRINT_STRING("should not remove the item from the list if the list is empty and given NULL");
+  PRINT_STRING("should not remove the item from the list if the list is empty and give NULL");
+
+  clear_list(list);
+}
+
+void test_remove_from_end(List_ptr list)
+{
+  Element element1 = create_int_element(1);
+  Element element2 = create_int_element(2);
+  add_to_list(list, element1);
+  add_to_list(list, element2);
+
+  PRINT_STRING("\nremove_from_end");
+
+  Element actual = remove_from_end(list);
+  int status = match_int_elements(actual, element2);
+  status = status && assert_integer(list->length, 1);
+  display_pass_or_fail(status);
+  PRINT_STRING("should remove the last item from the list");
+
+  actual = remove_from_end(list);
+  status = match_int_elements(actual, element1);
+  status = status && assert_integer(list->length, 0);
+  display_pass_or_fail(status);
+  PRINT_STRING("should remove the first item from the list if there is only one item");
+
+  actual = remove_from_end(list);
+  status = actual == NULL;
+  status = status && assert_integer(list->length, 0);
+  display_pass_or_fail(status);
+  PRINT_STRING("should not remove the item from the list if the list is empty and give NULL");
 
   clear_list(list);
 }
@@ -321,6 +351,7 @@ int main(void)
   test_reverse(list);
 
   test_remove_from_start(list);
+  test_remove_from_end(list);
 
   test_add_unique(list);
 

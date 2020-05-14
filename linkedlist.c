@@ -161,6 +161,20 @@ Element remove_from_start(List_ptr list)
   return element;
 }
 
+Element remove_from_end(List_ptr list)
+{
+  if (list->length <= 1)
+  {
+    return remove_from_start(list);
+  }
+  Node_ptr before_node = get_node_at(list, list->length - 2);
+  Element element = before_node->next->element;
+  before_node->next = NULL;
+  list->last = before_node;
+  list->length--;
+  return element;
+}
+
 Status clear_list(List_ptr list)
 {
   Status status = Failure;

@@ -67,8 +67,22 @@ void perform_remove_from_start(List_ptr list)
   Element element = create_int_element(1);
   add_to_start(list, element);
   display_list(list, &display_int_element);
-  
+
   Element actual = remove_from_start(list);
+  Status status = actual != NULL && match_int_elements(actual, element);
+  display_status(status, "The list is empty.");
+  display_list(list, &display_int_element);
+}
+
+void perform_remove_from_end(List_ptr list);
+void perform_remove_from_end(List_ptr list)
+{
+  PRINT_STRING("\nremove_from_end");
+  Element element = create_int_element(1);
+  add_to_list(list, element);
+  display_list(list, &display_int_element);
+
+  Element actual = remove_from_end(list);
   Status status = actual != NULL && match_int_elements(actual, element);
   display_status(status, "The list is empty.");
   display_list(list, &display_int_element);
@@ -100,6 +114,7 @@ int main()
   perform_reverse(list);
 
   perform_remove_from_start(list);
+  perform_remove_from_end(list);
 
   perform_add_unique(list);
 
