@@ -21,4 +21,6 @@ void display_pass_or_fail(int status);
 void test_create_list(void);
 void test_create_node(void);
 
+void test_add_to_list(List_ptr list);
+
 #endif

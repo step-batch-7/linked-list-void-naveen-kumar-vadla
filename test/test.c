@@ -39,6 +39,21 @@ void test_create_node(void)
   PRINT_STRING("should create a node and set its element to given element and next to NULL");
 }
 
+void test_add_to_list(List_ptr list)
+{
+  PRINT_STRING("\nadd_to_list");
+
+  int status = assert(add_to_list(list, create_int_element(1)), Success);
+  status = status && assert(list->length, 1);
+  display_pass_or_fail(status);
+  PRINT_STRING("should add the given number at the beginning if list is empty");
+
+  status = assert(add_to_list(list, create_int_element(2)), Success);
+  status = status && assert(list->length, 2);
+  display_pass_or_fail(status);
+  PRINT_STRING("should add the given number at the end of the list");
+}
+
 int main(void)
 {
   List_ptr list = create_list();
@@ -50,6 +65,8 @@ int main(void)
 
   test_create_list();
   test_create_node();
+
+  test_add_to_list(list);
 
   printf(GREEN "\n%d passing" RESET, PASSING_TESTS);
   printf(RED "\n%d failing\n" RESET, FAILING_TESTS);

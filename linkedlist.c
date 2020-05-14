@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "linkedlist.h"
 
 List_ptr create_list(void)
@@ -35,4 +33,22 @@ void display_list(List_ptr list, Display_Data displayer)
     p_walk = p_walk->next;
   }
   printf("\n");
+}
+
+Status add_to_list(List_ptr list, Element value)
+{
+  Node_ptr new_node = create_node(value);
+  Node_ptr *ptr_to_set = &list->first;
+  if (new_node == NULL)
+  {
+    return Memory_Not_Available;
+  }
+  if (list->first != NULL)
+  {
+    ptr_to_set = &list->last->next;
+  }
+  (*ptr_to_set) = new_node;
+  list->last = new_node;
+  list->length++;
+  return Success;
 }

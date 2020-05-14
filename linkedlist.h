@@ -12,7 +12,8 @@ The Linked List maintains the element references in a sequence and provides conv
 typedef enum
 {
   Failure,
-  Success
+  Success,
+  Memory_Not_Available
 } Status;
 
 typedef void *Element;
