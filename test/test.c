@@ -33,8 +33,12 @@ void test_create_list(void)
   PRINT_STRING("\ncreate_list");
 
   List_ptr list = create_list();
-  Status status = list != NULL;
-  status = status && list->first == NULL;
+  if (list == NULL)
+  {
+    PRINT_STRING("Memory not available");
+    exit(12);
+  }
+  Status status = status && list->first == NULL;
   status = status && list->last == NULL;
   display_pass_or_fail(status);
   PRINT_STRING("should create a list and set its first and last to NULL");
@@ -187,10 +191,14 @@ void test_reverse(List_ptr list)
   Element element2 = create_int_element(2);
   Element element3 = create_int_element(3);
   List_ptr expected = create_list();
-  Status status = expected != NULL;
+  if (expected == NULL)
+  {
+    PRINT_STRING("Memory not available");
+    exit(12);
+  }
 
   List_ptr actual = reverse(list);
-  status = assert_list(actual, expected, &match_int_elements);
+  Status status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give reversed empty list for given empty list");
 
@@ -334,7 +342,6 @@ void test_remove_at(List_ptr list)
   display_pass_or_fail(status);
   PRINT_STRING("should remove the element at the given position of the list");
 
-  display_list(list, &display_int_element);
   status = match_int_elements(remove_at(list, 0), element2);
   status = status && assert_integer(list->length, 1);
   status = match_int_elements(remove_at(list, 0), element4);
@@ -452,10 +459,14 @@ void test_map(List_ptr list)
 {
   PRINT_STRING("\nmap");
   List_ptr expected = create_list();
-  Status status = expected != NULL;
+  if (expected == NULL)
+  {
+    PRINT_STRING("Memory not available");
+    exit(12);
+  }
 
   List_ptr actual = map(list, &square_of_integer);
-  status = assert_list(actual, expected, &match_int_elements);
+  Status status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give empty array for given empty array");
 
@@ -487,10 +498,14 @@ void test_filter(List_ptr list)
 {
   PRINT_STRING("\nfilter");
   List_ptr expected = create_list();
-  Status status = expected != NULL;
+  if (expected == NULL)
+  {
+    PRINT_STRING("Memory not available");
+    exit(12);
+  }
 
   List_ptr actual = filter(list, &is_even_integer);
-  status = assert_list(actual, expected, &match_int_elements);
+  Status status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give empty array for given empty array");
 
@@ -609,14 +624,19 @@ void test_forEach(List_ptr list)
   PRINT_STRING("should iterate on given list");
 
   List_ptr expected = create_list();
-  Status status = expected != NULL;
+  if (expected == NULL)
+  {
+    PRINT_STRING("Memory not available");
+    exit(12);
+  }
+
   add_to_list(expected, create_int_element(1));
   add_to_list(expected, create_int_element(4));
   add_to_list(expected, create_int_element(9));
   add_to_list(expected, create_int_element(16));
   add_to_list(expected, create_int_element(25));
   forEach(list, &replace_element_with_its_square);
-  status = assert_list(list, expected, &match_int_elements);
+  Status status = assert_list(list, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should iterate on given list and change its values with equalent squares");
 
@@ -662,6 +682,11 @@ int main(void)
 
   printf(GREEN "\n%d passing" RESET, PASSING_TESTS);
   printf(RED "\n%d failing\n" RESET, FAILING_TESTS);
+
+  if (FAILING_TESTS)
+  {
+    exit(1);
+  }
 
   return 0;
 }
