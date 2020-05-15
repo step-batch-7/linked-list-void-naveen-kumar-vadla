@@ -649,7 +649,7 @@ int main(void)
   if (list == NULL)
   {
     PRINT_STRING("Memory_Not_Available");
-    return 0;
+    return 12;
   }
 
   test_create_list();
@@ -685,7 +685,7 @@ int main(void)
 
   if (FAILING_TESTS)
   {
-    exit(1);
+    return 1;
   }
 
   return 0;
