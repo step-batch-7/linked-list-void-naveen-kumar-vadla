@@ -35,7 +35,7 @@ void test_create_list(void)
   List_ptr list = create_list();
   if (list == NULL)
   {
-    PRINT_STRING("Memory not available");
+    PRINT_STRING("Memory_Not_Available");
     exit(12);
   }
   Status status = status && list->first == NULL;
@@ -193,7 +193,7 @@ void test_reverse(List_ptr list)
   List_ptr expected = create_list();
   if (expected == NULL)
   {
-    PRINT_STRING("Memory not available");
+    PRINT_STRING("Memory_Not_Available");
     exit(12);
   }
 
@@ -461,7 +461,7 @@ void test_map(List_ptr list)
   List_ptr expected = create_list();
   if (expected == NULL)
   {
-    PRINT_STRING("Memory not available");
+    PRINT_STRING("Memory_Not_Available");
     exit(12);
   }
 
@@ -500,7 +500,7 @@ void test_filter(List_ptr list)
   List_ptr expected = create_list();
   if (expected == NULL)
   {
-    PRINT_STRING("Memory not available");
+    PRINT_STRING("Memory_Not_Available");
     exit(12);
   }
 
@@ -626,7 +626,7 @@ void test_forEach(List_ptr list)
   List_ptr expected = create_list();
   if (expected == NULL)
   {
-    PRINT_STRING("Memory not available");
+    PRINT_STRING("Memory_Not_Available");
     exit(12);
   }
 

@@ -11,6 +11,10 @@ void display_status(Status status, char *error_message)
   }
   char *message = messages[status];
   PRINT_STRING(message);
+  if (status == Memory_Not_Available)
+  {
+    exit(12);
+  }
 }
 
 void perform_add_to_list(List_ptr list);
@@ -195,7 +199,7 @@ int main()
   if (list == NULL)
   {
     display_status(Memory_Not_Available, "");
-    return 0;
+    return 12;
   }
   display_list(list, &display_int_element);
 
