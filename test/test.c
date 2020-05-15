@@ -187,9 +187,10 @@ void test_reverse(List_ptr list)
   Element element2 = create_int_element(2);
   Element element3 = create_int_element(3);
   List_ptr expected = create_list();
+  Status status = expected != NULL;
 
   List_ptr actual = reverse(list);
-  Status status = assert_list(actual, expected, &match_int_elements);
+  status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give reversed empty list for given empty list");
 
@@ -451,9 +452,10 @@ void test_map(List_ptr list)
 {
   PRINT_STRING("\nmap");
   List_ptr expected = create_list();
+  Status status = expected != NULL;
 
   List_ptr actual = map(list, &square_of_integer);
-  Status status = assert_list(actual, expected, &match_int_elements);
+  status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give empty array for given empty array");
 
@@ -485,9 +487,10 @@ void test_filter(List_ptr list)
 {
   PRINT_STRING("\nfilter");
   List_ptr expected = create_list();
+  Status status = expected != NULL;
 
   List_ptr actual = filter(list, &is_even_integer);
-  Status status = assert_list(actual, expected, &match_int_elements);
+  status = assert_list(actual, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should give empty array for given empty array");
 
@@ -606,13 +609,14 @@ void test_forEach(List_ptr list)
   PRINT_STRING("should iterate on given list");
 
   List_ptr expected = create_list();
+  Status status = expected != NULL;
   add_to_list(expected, create_int_element(1));
   add_to_list(expected, create_int_element(4));
   add_to_list(expected, create_int_element(9));
   add_to_list(expected, create_int_element(16));
   add_to_list(expected, create_int_element(25));
   forEach(list, &replace_element_with_its_square);
-  Status status = assert_list(list, expected, &match_int_elements);
+  status = assert_list(list, expected, &match_int_elements);
   display_pass_or_fail(status);
   PRINT_STRING("should iterate on given list and change its values with equalent squares");
 

@@ -113,6 +113,10 @@ Status insert_at(List_ptr list, Element value, int position)
 List_ptr reverse(List_ptr list)
 {
   List_ptr new_list = create_list();
+  if (list == NULL)
+  {
+    return new_list;
+  }
   Node_ptr p_walk = list->first;
   while (p_walk != NULL)
   {
@@ -214,6 +218,10 @@ Element remove_first_occurrence(List_ptr list, Element value, Matcher *matcher)
 List_ptr remove_all_occurrences(List_ptr list, Element value, Matcher *matcher)
 {
   List_ptr new_list = create_list();
+  if (list == NULL)
+  {
+    return new_list;
+  }
   Element element = remove_first_occurrence(list, value, matcher);
   while (element != NULL)
   {
@@ -240,6 +248,10 @@ Status clear_list(List_ptr list)
 List_ptr map(List_ptr list, Mapper *mapper)
 {
   List_ptr new_list = create_list();
+  if (list == NULL)
+  {
+    return new_list;
+  }
   Node_ptr p_walk = list->first;
   while (p_walk != NULL)
   {
@@ -253,6 +265,10 @@ List_ptr map(List_ptr list, Mapper *mapper)
 List_ptr filter(List_ptr list, Predicate *predicate)
 {
   List_ptr new_list = create_list();
+  if (list == NULL)
+  {
+    return new_list;
+  }
   Node_ptr p_walk = list->first;
   while (p_walk != NULL)
   {
